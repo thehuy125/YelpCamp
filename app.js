@@ -18,13 +18,17 @@ app.locals.moment = require("moment"); // biến cục bộ
 var commentRoutes = require("./routes/comments"),
 	campgroundRoutes = require("./routes/campgrounds"),
 	indexRoutes = require("./routes/index");
-
-mongoose.connect("mongodb://localhost/yelp_camp_v12_1", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false,
-	useCreateIndex: true,
-});
+// mongodb://localhost/yelp_camp_v12_1
+// mongodb+srv://thehuy:XTL1LCygZB7NKTg4@cluster0.emofo.mongodb.net/test
+mongoose.connect(
+	"mongodb+srv://thehuy:XTL1LCygZB7NKTg4@cluster0.emofo.mongodb.net/yelp_camp_v12_1",
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+		useCreateIndex: true,
+	}
+);
 // mongoose.set('useCreateIndex', true);
 
 app.use(
