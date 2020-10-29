@@ -46,7 +46,8 @@ app.use(flash());
 // seedDB();
 
 var store = new MongoDBStore({
-	url: "mongodb://localhost/yelp_camp_v13",
+	// url: "mongodb://localhost/yelp_camp_v13",
+	url: process.env.DB_URL,
 	secret: process.env.SECRET || "Hello world",
 	touchAfter: 24 * 60 * 60,
 });
