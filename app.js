@@ -47,7 +47,7 @@ app.use(flash());
 
 var store = new MongoDBStore({
 	url: "mongodb://localhost/yelp_camp_v13",
-	secret: process.env.secret || "Hello world",
+	secret: process.env.SECRET || "Hello world",
 	touchAfter: 24 * 60 * 60,
 });
 
@@ -55,7 +55,7 @@ var store = new MongoDBStore({
 app.use(
 	session({
 		store,
-		secret: process.env.secret || "Hello world",
+		secret: process.env.SECRET || "Hello world",
 		resave: false,
 		saveUninitialized: false,
 	})
@@ -79,6 +79,6 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes); //thay thế path này vào các path có trong commentRoutes
 
-app.listen(8080, function () {
+app.listen(process.env.PORT || 8080, function () {
 	console.log("server start");
 });
