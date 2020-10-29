@@ -1,5 +1,6 @@
 var express = require("express"),
 	app = express(),
+	session = require("express-session"),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
 	flash = require("connect-flash"),
@@ -9,6 +10,7 @@ var express = require("express"),
 	Comment = require("./models/comment"),
 	User = require("./models/user"),
 	Campground = require("./models/campground"),
+	MongoDBStore = require("connect-mongo")(session),
 	seedDB = require("./seeds");
 
 require("dotenv").config();
@@ -18,17 +20,15 @@ app.locals.moment = require("moment"); // biến cục bộ
 var commentRoutes = require("./routes/comments"),
 	campgroundRoutes = require("./routes/campgrounds"),
 	indexRoutes = require("./routes/index");
+
 // mongodb://localhost/yelp_camp_v12_1
-// mongodb+srv://thehuy:XTL1LCygZB7NKTg4@cluster0.emofo.mongodb.net/test
-mongoose.connect(
-	"mongodb+srv://thehuy:XTL1LCygZB7NKTg4@cluster0.emofo.mongodb.net/yelp_camp_v12_1",
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-		useCreateIndex: true,
-	}
-);
+// mongodb+srv://thehuy:XTL1LCygZB7NKTg4@cluster0.emofo.mongodb.net/yelp_camp_v12_1
+mongoose.connect(process.env.DB_URL || "mongodb://localhost/yelp_camp_v13", {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+	useCreateIndex: true,
+});
 // mongoose.set('useCreateIndex', true);
 
 app.use(
@@ -45,10 +45,17 @@ app.use(flash());
 //Seed the database
 // seedDB();
 
+var store = new MongoDBStore({
+	url: "mongodb://localhost/yelp_camp_v13",
+	secret: process.env.secret || "Hello world",
+	touchAfter: 24 * 60 * 60,
+});
+
 // PASSPORT CONFIGURATION
 app.use(
-	require("express-session")({
-		secret: "Hello world",
+	session({
+		store,
+		secret: process.env.secret || "Hello world",
 		resave: false,
 		saveUninitialized: false,
 	})
