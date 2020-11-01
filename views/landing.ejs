@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>YelpCamp</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/landing.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-    </head>
-    <body>
-    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/stylesheets/landing.css">
+    <script src="https://kit.fontawesome.com/05bbfcd242.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    <title>YelpCamp</title>
+</head>
+<body>
     <div class="container">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
@@ -20,18 +22,36 @@
             </div>
         <% } %>
     </div>
-    
-    <div id="landing-header">
- 		<h1>Welcome to YelpCamp!</h1>
-		<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
-    </div>
-    
-    <ul class="slideshow">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
 
-<%- include ("partials/footer") %>
+    <div id="hero">
+        <div class="navbar">
+            <img src="img/camp.png" alt="logo" class="logo">
+            <div class="user">
+                <% if(!currentUser){ %>
+                    <li><a href="/login" class="logotxt" type="button">Login</a></li>
+                    <li><a href="/register" class="logotxt">Sign Up</a></li>
+                <% } else { %>
+                    <li><a href="#" class="logotxt">Signed In As <%= currentUser.username %></a></li>
+                    <li><a href="/logout" class="logotxt">Logout</a></li>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="info">
+                <h1>YelpCamp</h1>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia minus,<br> numquam vitae molestias consequuntur iure unde recusandae aliquid iusto <br> atque dignissimos delectus modi expedita. Quo vitae voluptatibus omnis <br> excepturi velit.</p>
+                <a id="btn-a" href="/campgrounds">View Campground</a>
+            </div>
+        </div>
+
+        <ul class="slideshow">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+</html>
